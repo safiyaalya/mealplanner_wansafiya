@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Meal Planner</title>
+  <style>
+    body {
+      background-image: url('https://img.freepik.com/free-vector/hand-drawn-fast-food-background_23-2149013389.jpg?w=1060&t=st=1698904003~exp=1698904603~hmac=713087d9a37ddebbd89f63a6e0b69f40f30b5600569db8b63e9f465852832fb6');
+      font-family: 'Open Sans', sans-serif;
+      box-sizing: border-box;
+      margin: 0;
+      font-size: 120%;
+      background-color: aquamarine;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: #333;
+    }
+
+    li {
+      float: left;
+      border-right: 1px solid #bbb;
+    }
+
+    li:last-child {
+      border-right: none;
+    }
+
+    li a {
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    li a:hover:not(.active) {
+      background-color: #d77777;
+    }
+
+    .active {
+      background-color: rgb(218, 48, 48);
+    }
+
+    .mainWrapper {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    #form,
+    #MealplannerList {
+      flex-basis: 33%;
+      text-align: center;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      margin-top: 50px;
+    }
+
+    h1 {
+      background-color: #ff3131;
+      color: white;
+      padding: 20px;
+      margin: 0 0 20px;
+      text-align: center;
+      border-radius: 5px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #dc3737;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #da9292;
+    }
+
+    #updateModal {
+      display: none;
+      position: fixed;
+      width: 20%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f5f0e1;
+      padding: 30px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li class="active"><a href="#">MealPlanner</a></li>
+    <li><a href="cal.html">Calories Calculator</a></li>
+    <li style="float:right"><a href="#" onclick="self.close()">Exit</a></li>
+  </ul>
+
+  <div class="mainWrapper">
+    <!-- Form Section -->
+    <section id="form">
+      <h1>Tell About Your Meal Plan</h1>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label for="mealplanner">MealPlanner:</label>
+        <textarea id="mealplanner" placeholder="Enter your meal plan"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="ingredients">Ingredients:</label>
+        <textarea id="ingredients" placeholder="Enter your ingredients"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="recepi">Recepi:</label>
+        <textarea id="recepi" placeholder="Enter your recepi"></textarea>
+      </div>
+      <button onclick="submitMeals()">Submit</button>
+    </section>
+
+    <!-- Submitted Data Section -->
+    <div id="MealplannerList"></div>
+  </div>
+
+  <div id="updateModal">
+    <div>
+      <label for="newName">Name:</label>
+      <input type="text" id="newName" placeholder="Enter a new name...">
+    </div>
+    <div>
+      <label for="newMealplanner">Meal Planner:</label>
+      <textarea id="newMealplanner" placeholder="Enter a new meal planner..."></textarea>
+    </div>
+    <div>
+      <label for="newIngredients">Meal Planner:</label>
+      <textarea id="newIngredients" placeholder="Enter a new ingredients..."></textarea>
+    </div>
+    <div>
+      <label for="newRecepi">Recepi:</label>
+      <textarea id="newRecepi" placeholder="Enter a new recepi..."></textarea>
+    </div>
+    <button onclick="saveUpdate()">Save</button>
+    <br>
+    <br>
+    <button onclick="closeModal()">Close</button>
+  </div>
+
+  <script>
+    var meal = JSON.parse(localStorage.getItem('meal')) || [];
+    var selectedIndex;
+
+    function submitMeals() {
+      var name = document.getElementById('name').value;
+      var mealplanner = document.getElementById('mealplanner').value;
+      var ingredients = document.getElementById('ingredients').value;
+      var recepi = document.getElementById('recepi').value;
+
+      meal.push({
+        name: name,
+        mealplanner: mealplanner,
+        ingredients: ingredients,
+        recepi: recepi
+      });
+
+      localStorage.setItem('meal', JSON.stringify(meal));
+
+      readMeals();
+    }
+
+    function readMeals() {
+      var MealplannerList = document.getElementById('MealplannerList');
+      MealplannerList.innerHTML = '';
+      for (var i = 0; i < meal.length; i++) {
+        MealplannerList.innerHTML += `
+          <div class="feedback-item">
+            <p>Name: ${meal[i].name}</p>
+            <p>Meal Planner: ${meal[i].mealplanner}</p>
+            <p>Ingredients: ${meal[i].ingredients}</p>
+            <p>Recepi: ${meal[i].recepi}</p>
+            <div class="feedback-buttons">
+              <button onclick="updateMeals(${i})">Update</button><br><br>
+              <button onclick="deleteMeals(${i})">Delete</button>
+            </div>
+          </div>
+        `;
+      }
+    }
+  
+    function updateMeals(index) {
+      selectedIndex = index;
+      document.getElementById('newName').value = meal[index].name;
+      document.getElementById('newMealplanner').value = meal[index].mealplanner;
+      document.getElementById('newIngredients').value = meal[index].ingredients;
+      document.getElementById('newRecepi').value = meal[index].recepi;
+      document.getElementById('updateModal').style.display = 'block';
+    }
+  
+    function closeModal() {
+      document.getElementById('updateModal').style.display = 'none';
+    }
+  
+    function saveUpdate() {
+      meal[selectedIndex].name = document.getElementById('newName').value;
+      meal[selectedIndex].mealplanner = document.getElementById('newMealplanner').value;
+      meal[selectedIndex].ingredients = document.getElementById('newIngredients').value;
+      meal[selectedIndex].recepi = document.getElementById('newRecepi').value;
+  
+      // Save to localStorage
+      localStorage.setItem('meal', JSON.stringify(meal));
+  
+      readMeals();
+      closeModal();
+    }
+  
+    function deleteMeals(index) {
+      meal.splice(index, 1);
+  
+      // Save to localStorage
+      localStorage.setItem('meal', JSON.stringify(meal));
+  
+      readMeals();
+    }
+  
+    // Function to navigate back to the previous page in the browser history
+    function goBack() {
+      window.history.back();
+    }
+  
+    // Load meals from localStorage when the page loads
+    window.onload = readMeals;
+  </script>
+</body>
+</html>

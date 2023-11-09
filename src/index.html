@@ -1,0 +1,211 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meal Planner</title>
+    <style>
+        /* Body Styles */
+        body {
+            background-image: url('https://i.pinimg.com/originals/1f/2e/d7/1f2ed796410477e1a734a08a516a7c9e.jpg');
+            font-family: 'Open Sans', sans-serif;
+            box-sizing: border-box;
+            margin: 0;
+            font-size: 120%;
+            background-color: rgb(188, 151, 128);
+            background-size:cover;
+        }
+
+        /* Navbar Styles */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #d2be99;
+        }
+
+        li {
+            float: left;
+            border-right: 1px solid #bbb;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #d77777;
+        }
+
+        .active {
+            background-color: rgb(218, 48, 48);
+        }
+
+        /* Main Wrapper Styles */
+        .mainWrapper {
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Form Styles */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 10%;
+            padding: 10px;
+            background-color: #dc3737;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #da9292;
+        }
+
+        /* Heading Styles */
+        h1 {
+            color: #000000;
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        
+        /* Additional Styles for Meal Planner Page */
+        h1, h2, h4 {
+            color: #000000;
+        }
+
+        select, button {
+            margin-top: 10px;
+        }
+
+        #meal-container {
+            margin-top: 20px;
+        }
+
+
+
+        .meal-table {
+            border-collapse: collapse;
+            width: 100%;
+}
+
+        .meal-table, .meal-table th, .meal-table td {
+        border: 2px solid #050505;
+}
+
+.meal-table th, .meal-table td {
+    padding: 8px;
+    text-align: left;
+}
+
+
+    </style>
+</head>
+<body>
+    <ul>
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="planner.html">MealPlanner</a></li>
+        <li><a href="cal.html">Calories Calculator</a></li>
+    </ul>
+    <div class="mainWrapper">
+        <h1>Tell About Your Meal Plan</h1>
+        <h2>🍜 Meal Planner 🍜</h2>
+
+        <h4>Select meal type:</h4>
+        <select id="meal-type-dropdown">
+            <option value="chicken">Chicken</option>
+            <option value="beef">Beef</option>
+            <option value="lamb">Lamb</option>
+            <option value="fish">Fish</option>
+            <option value="prawn">Prawn</option>
+            <option value="pork">Pork</option>
+            <option value="salmon">Salmon</option>
+            <option value="egg">Egg</option>
+            <option value="carrot">Carrot</option>
+            <option value="tomato">Tomato</option>
+            <option value="potato">Potato</option>
+            <option value="banana">Banana</option>
+            <option value="apple">Apple</option>
+            <option value="lemon">Lemon</option>
+            <option value="avocado">Avocado</option>
+            <option value="pear">Pear</option>
+            <option value="strawberry">Strawberry</option>
+            <option value="vegetarian">Vegetarian</option>
+            <option value="eggplant">Eggplant</option>
+            <option value="pea">Peas</option>
+            <option value="mushroom">Mushroom</option>
+            <option value="rice">Rice</option>
+            <option value="noodle">Noodle</option>
+    
+        </select>
+        <button id="fetch-meal-btn" onclick="changeBackground()">Fetch Meal</button>
+        
+
+        <div id="meal-container"></div>
+
+        
+    <script src="fetchapi.js"></script>
+
+    <script>
+        function changeBackground() {
+            // Fetch data logic here
+    
+            // Change background image dynamically
+            document.body.style.backgroundImage = "url('https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fphotos-images%2Ffood-background.html&psig=AOvVaw1Q7R4gyjqWAFWbzxNzspHR&ust=1699344934655000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCPjO1qv3roIDFQAAAAAdAAAAABAE.jpg')";
+        }
+    </script>
+    </div>
+</body>
+</html>

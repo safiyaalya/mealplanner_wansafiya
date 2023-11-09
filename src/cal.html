@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Calculator</title>
+    <style>
+        /* Body Styles */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: rgb(188, 151, 128);
+            background-size: cover;
+            margin: 0;
+            font-size: 120%;
+        }
+
+        /* Navbar Styles */
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #d2be99;
+        }
+
+        li {
+            float: left;
+            border-right: 1px solid #bbb;
+        }
+
+        li:last-child {
+            border-right: none;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: #d77777;
+        }
+
+        .active {
+            background-color: rgb(218, 48, 48);
+        }
+
+        /* Main Wrapper Styles */
+        .mainWrapper {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 30px;
+            width: 500px;
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="planner.html">MealPlanner</a></li>
+        <li class="active"><a href="#">Calories Calculator</a></li>
+    </ul>
+    <div class="mainWrapper"></div>
+    <h1>Calories Calculator</h1>
+
+    <form id="calorieForm">
+        <label for="breakfastServings">Breakfast Servings:</label>
+        <input type="number" id="breakfastServings" name="breakfastServings" required>
+
+        <label for="breakfastCaloriesPerServing">Calories Per Serving:</label>
+        <input type="number" id="breakfastCaloriesPerServing" name="breakfastCaloriesPerServing" required>
+
+        <label for="lunchServings">Lunch Servings:</label>
+        <input type="number" id="lunchServings" name="lunchServings" required>
+
+        <label for="lunchCaloriesPerServing">Calories Per Serving:</label>
+        <input type="number" id="lunchCaloriesPerServing" name="lunchCaloriesPerServing" required>
+
+        <label for="dinnerServings">Dinner Servings:</label>
+        <input type="number" id="dinnerServings" name="dinnerServings" required>
+
+        <label for="dinnerCaloriesPerServing">Calories Per Serving:</label>
+        <input type="number" id="dinnerCaloriesPerServing" name="dinnerCaloriesPerServing" required>
+
+        <button type="button" onclick="calculateCalories()">Calculate Calories</button>
+    </form>
+
+    <h2>Result:</h2>
+    <p id="caloriesResult"></p>
+
+
+    <script>
+        function calculateCalories() {
+            // Get input values
+            var breakfastServings = parseFloat(document.getElementById('breakfastServings').value);
+            var breakfastCaloriesPerServing = parseFloat(document.getElementById('breakfastCaloriesPerServing').value);
+
+            var lunchServings = parseFloat(document.getElementById('lunchServings').value);
+            var lunchCaloriesPerServing = parseFloat(document.getElementById('lunchCaloriesPerServing').value);
+
+            var dinnerServings = parseFloat(document.getElementById('dinnerServings').value);
+            var dinnerCaloriesPerServing = parseFloat(document.getElementById('dinnerCaloriesPerServing').value);
+
+            // Calculate total calories for each meal
+            var totalBreakfastCalories = breakfastServings * breakfastCaloriesPerServing;
+            var totalLunchCalories = lunchServings * lunchCaloriesPerServing;
+            var totalDinnerCalories = dinnerServings * dinnerCaloriesPerServing;
+
+            // Calculate overall total calories
+            var overallTotalCalories = totalBreakfastCalories + totalLunchCalories + totalDinnerCalories;
+
+            // Display result
+            document.getElementById('caloriesResult').innerHTML = 'Total Calories: ' + overallTotalCalories;
+        }
+    </script>
+</body>
+</html>
